@@ -20,8 +20,8 @@ public class IDContr {
     private IDForm id = new IDForm();
     public Map<String, String> remplissage_ID(ArrayList<String> liste_membre)
     {
+        return id.affichage_utilisateur(liste_membre); 
         
-        return id.affichage_utilisateur(liste_membre);     
         
         
     }

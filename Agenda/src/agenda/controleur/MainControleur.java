@@ -7,7 +7,6 @@ package agenda.controleur;
 
 import agenda.Calendrier;
 import agenda.Rdv;
-import agenda.vue.CalendrierAff;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -32,11 +31,10 @@ public class MainControleur {
         boolean change = false;
         boolean quitter = false;
         String chaine = " ";
-        CalendrierAff aff = new CalendrierAff();
 
         File fichier = new File("fichier_personne.txt");
         if (!fichier.exists()) {
-           aff.affichage_nonfichier();
+            System.out.println("le fichier  n'existe pas");
 
             System.exit(1);
 
@@ -65,14 +63,18 @@ public class MainControleur {
         while (change == false && quitter == false) {
             IDContr recup_id = new IDContr();
             Map<String, String> personne_id = recup_id.remplissage_ID(liste_membre);
+            do{
+                personne_id = recup_id.remplissage_ID(liste_membre);
+            }while(personne_id.get("prenom").equals("retour"));
+            
             String nom = personne_id.get("nom");
             String prenom = personne_id.get("prenom");
             String ID = nom + " " + prenom;
-
+            System.out.println(ID);
             Calendrier cal = new Calendrier(nom, prenom);
             ArrayList<Rdv> liste_rdv = new ArrayList<>();
 
-            for (int i = 0; i < liste_membre.size(); i++) {
+            for (int i = 0; i < liste_membre.size(); i++) {   
 
                 if (Objects.equals(liste_membre.get(i), ID)) {
 
@@ -101,46 +103,46 @@ public class MainControleur {
             ModifierRdvControleur modif = new ModifierRdvControleur();
             SuppRdvControleur supp = new SuppRdvControleur();
             RappelControleur rapp = new RappelControleur();
-            TrierDeuxDatesControleur tri = new TrierDeuxDatesControleur();
-
+            
             int choix;
 
+            if (!cal.getListeRdv().isEmpty()) {
+                cal.trier_entre_deux_dates();
+
+            }
+
             while (quitter == false && change == false) {
-                if (!cal.getListeRdv().isEmpty()) {
-                    cal.trier();
-
-                }
-
                 rapp.affichage_rappel(cal);
-
                 choix = remp_choix.remplissage_choix(chaine);
-
+                System.out.println(liste_rdv.size());
                 switch (choix) {
-                    case 0 : 
-                        action_gene.affichage_nonsaisi();
                     case 1:
                         chaine = action_gene.affichage_agenda(cal);
                         break;
-                    case 2:
+                    case 2 :
                         chaine = aff_critere.affichage_agenda(cal);
                         break;
-                    case 3:
-                        liste_rdv = modif.verifRdv(cal);
+                    case 3 :
+                        if(!cal.getListeRdv().isEmpty())liste_rdv = modif.verifRdv(cal);
+                        else modif.erreur_vide();
                         cal.setListeRdv(liste_rdv);
                         break;
-                    case 4:
-                        liste_rdv = supp.verifRdv(cal);
+                    case 4 : 
+                        if(!cal.getListeRdv().isEmpty())liste_rdv = supp.verifRdv(cal);
+                        else supp.erreur_vide();
                         cal.setListeRdv(liste_rdv);
-                        break;
-                    case 5:
-                        liste_rdv = supp.vider_calendrier(cal);
-                        cal.setListeRdv(liste_rdv);
-                        break;
+                        break;    
+                    case 5 :
+                       if(!cal.getListeRdv().isEmpty())liste_rdv = supp.vider_calendrier(cal);
+                       else supp.erreur_vide();
+                       cal.setListeRdv(liste_rdv);
+                       break;
                     case 6:
                         cal.setListeRdv(ajout.verifRdv(cal));
                         break;
-                    case 7:
-                        chaine = tri.verifTri(cal);
+                    case 7 :
+                        quitter = true;
+                        cal.save();
                         break;
                     case 8:
                         cal.save();
@@ -152,11 +154,11 @@ public class MainControleur {
                         cal = new Calendrier(nom, prenom);
                         liste_rdv = new ArrayList<>();
 
-                        for (int i = 0; i < liste_membre.size(); i++) {
+                        for (int i = 0; i < liste_membre.size(); i++) {   
 
                             if (Objects.equals(liste_membre.get(i), ID)) {
 
-                                cal.setListeRdv(liste_rdv);
+                                 cal.setListeRdv(liste_rdv);
                                 cal.ouverture_calendrier_data();
                                 liste_rdv = cal.getListeRdv();
                                 trouve = true;
@@ -178,7 +180,7 @@ public class MainControleur {
 
             File fichiercal = new File("fichier_personne.txt");
             if (!fichiercal.exists()) {
-                aff.affichage_nonfichier();
+                System.out.println("le fichier des membres n'existe pas");
 
                 System.exit(1);
 

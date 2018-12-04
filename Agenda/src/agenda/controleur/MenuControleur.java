@@ -5,6 +5,7 @@
  */
 package agenda.controleur;
 
+import agenda.vue.IDForm;
 import agenda.vue.MenuForm;
 
 /**
@@ -17,7 +18,6 @@ public class MenuControleur {
             
     public int remplissage_choix(String chaine)
     {
-        
        return choix.affichage_Menu(chaine);
         
         

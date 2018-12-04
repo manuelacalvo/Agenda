@@ -7,6 +7,8 @@ package agenda.vue;
 
 import agenda.Calendrier;
 import agenda.Rdv;
+import agenda.controleur.ModifierRdvControleur;
+import static agenda.vue.AfficherRdvCritereForm.choix_str;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
@@ -50,24 +52,18 @@ public class ModifierRdvForm {
     private Box b7;
     private boolean filled = false;
     private final Object obj = new Object();
-    private CalendrierAff aff = new CalendrierAff();
     
     public LocalDate affichage_demandeModif(Calendrier cal) {
 
         rdv = new Rdv();
-        LocalDate date_rdv_amodif;
+        
         filled = false;
         frame = new JFrame(" Bienvenue dans la modification d'un rendez-vous ");
         frame.setPreferredSize(new Dimension(800, 600));
-        
+        frame.setLocationRelativeTo(null);
 
-        String _date =  (String)JOptionPane.showInputDialog(frame, " Saisissez la date du rendez vous à modifier");
-        
-        while(_date.length() == 0)
-            {
-                aff.affichage_nonsaisi();
-                 _date = (String)JOptionPane.showInputDialog(frame, " Saisissez la date du rendez vous à modifier");
-            } 
+        String _date = (String)JOptionPane.showInputDialog(frame, " Saisissez la date du rendez vous à modifier");
+        LocalDate date_rdv_amodif;
         date_rdv_amodif = LocalDate.parse(_date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         return date_rdv_amodif;
     }
@@ -92,6 +88,11 @@ public class ModifierRdvForm {
         JOptionPane.showMessageDialog(frame, "Erreur. Les rendez vous ne peuvent pas se chevaucher");
     }
     
+    public void affichage_vide(){
+        frame = new JFrame("Erreur");
+        JOptionPane.showMessageDialog(frame, "Votre calendrier est vide. Vous ne pouvez rien modifier.");
+    }
+    
     public Rdv affichage_ModifRdv() {
 
         
@@ -99,7 +100,7 @@ public class ModifierRdvForm {
         filled = false;
         frame = new JFrame(" Bienvenue dans l'ajout d'un rendez-vous ");
         frame.setPreferredSize(new Dimension(800, 600));
-       
+        frame.setLocationRelativeTo(null);
 
         b1 = Box.createHorizontalBox();
         label_date = new JLabel("Date du Rdv ( jj/MM/yyyy)");
@@ -173,24 +174,10 @@ public class ModifierRdvForm {
  
      private Rdv fillRecherche(ActionEvent e) {
         rdv = new Rdv();
-        
+        Boolean _rappel;
 
-         
         LocalDate date = LocalDate.parse(entree_date.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-       
-        while(entree_date.getText().length() == 0 )
-            {
-                aff.affichage_nonsaisi();
-                 date = LocalDate.parse(entree_date.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            } 
-        
         LocalTime hDebut = LocalTime.parse(entree_hDebut.getText());
-        while(entree_hDebut.getText().length() == 0 )
-            {
-                aff.affichage_nonsaisi();
-                hDebut = LocalTime.parse(entree_hDebut.getText());
-            } 
-        
        
         rdv.setDate(date);
         rdv.setHdebut(hDebut);
@@ -206,40 +193,11 @@ public class ModifierRdvForm {
         Boolean _rappel = false;
 
         LocalDate date = LocalDate.parse(entree_date.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        while(entree_date.getText().length() == 0 )
-            {
-                aff.affichage_nonsaisi();
-                date = LocalDate.parse(entree_date.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            } 
-        
         LocalTime hDebut = LocalTime.parse(entree_hDebut.getText());
-        while(entree_hDebut.getText().length() == 0 )
-            {
-                aff.affichage_nonsaisi();
-                hDebut = LocalTime.parse(entree_hDebut.getText());
-            } 
-        
         LocalTime hFin = LocalTime.parse(entree_hFin.getText());
-        while(entree_hFin.getText().length() == 0 )
-            {
-                aff.affichage_nonsaisi();
-                hFin = LocalTime.parse(entree_hFin.getText());
-            } 
-        
         String libelle = entree_Libelle.getText();
-        while(entree_Libelle.getText().length() == 0 )
-            {
-                aff.affichage_nonsaisi();
-                libelle = entree_Libelle.getText();
-            } 
-        
         int rappel = Integer.parseInt(entree_Rappel.getText());
-         while(entree_Rappel.getText().length() == 0 || entree_Rappel.getText() != "0" || entree_Rappel.getText() != "1" )
-            {
-                aff.affichage_nonsaisi();
-                rappel = Integer.parseInt(entree_Rappel.getText());
-            }
-         
+
         if (rappel == 1) {
             _rappel = true;
         } 
@@ -252,7 +210,7 @@ public class ModifierRdvForm {
 
         filled = true;
         
-        
+        System.out.println(rdv_ajout.toString());
         
     }
 }

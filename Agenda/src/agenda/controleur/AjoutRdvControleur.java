@@ -39,8 +39,8 @@ public class AjoutRdvControleur {
                 else if (rdv.getHfin().isAfter(rdv2.getHdebut())){
                     if(rdv.getHfin().isBefore(rdv2.getHfin())) trouve = false;
                 }
-                else if(rdv.getHdebut().isBefore(rdv2.getHdebut())){
-                    if(rdv.getHfin().isAfter(rdv2.getHfin())) trouve = false;
+                if(rdv2.getHfin().isBefore(rdv.getHfin())){
+                   if(rdv2.getHdebut().isAfter(rdv.getHdebut())) trouve = false;
                 }
             }           
         }

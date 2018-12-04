@@ -15,6 +15,7 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -42,7 +43,6 @@ public class SuppRdvForm {
     private int choix;
     private Box affichage;
     private JTextArea fenetre_aff;
-    private CalendrierAff aff = new CalendrierAff();
 
     public Rdv affichage_demandeSupp() {
 
@@ -51,7 +51,7 @@ public class SuppRdvForm {
         filled = false;
         frame = new JFrame(" Bienvenue dans la suppression d'un rendez-vous ");
         frame.setPreferredSize(new Dimension(800, 600));
-        
+        frame.setLocationRelativeTo(null);
 
         b1 = Box.createHorizontalBox();
         label_date = new JLabel("Date du Rdv ( jj/MM/yyyy)");
@@ -102,7 +102,7 @@ public class SuppRdvForm {
         filled = false;
         frame = new JFrame(" Bienvenue dans la suppression d'un rendez-vous ");
         frame.setPreferredSize(new Dimension(800, 600));
-        
+        frame.setLocationRelativeTo(null);
 
         affichage = Box.createHorizontalBox();
         fenetre_aff = new JTextArea(" Voici le rendez-vous que vous voulez supprimer " + "\n" + chaine);
@@ -145,18 +145,7 @@ public class SuppRdvForm {
         rdv = new Rdv();
 
         LocalDate date = LocalDate.parse(entree_date.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        while(entree_date.getText().length() == 0 )
-            {
-                aff.affichage_nonsaisi();
-                date = LocalDate.parse(entree_date.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            } 
-        
         LocalTime hDebut = LocalTime.parse(entree_hDebut.getText());
-         while(entree_hDebut.getText().length() == 0 )
-            {
-                aff.affichage_nonsaisi();
-                hDebut = LocalTime.parse(entree_hDebut.getText());
-            } 
 
         rdv.setDate(date);
         rdv.setHdebut(hDebut);
@@ -180,5 +169,11 @@ public class SuppRdvForm {
 
         filled = true;
 
+    }
+    
+    public void affichage_vide(){
+        frame = new JFrame("Erreur");
+        JOptionPane.showMessageDialog(frame, "Votre calendrier est déjà vide.");
+        
     }
 }

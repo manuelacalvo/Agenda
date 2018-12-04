@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agenda.vue;
+package agenda;
 
 /**
  *
- * @author CALVO Manuela
+ * @author CALVO Manuela MEISTER Tatiana
  */
-public class CalendrierAff {
+public class Menu {
     
 }

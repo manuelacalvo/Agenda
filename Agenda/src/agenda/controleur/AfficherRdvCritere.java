@@ -8,6 +8,8 @@ package agenda.controleur;
 import agenda.Calendrier;
 import agenda.Rdv;
 import agenda.vue.AfficherRdvCritereForm;
+import agenda.vue.AjoutRdvForm;
+import agenda.vue.MenuForm;
 import java.util.ArrayList;
 import java.util.Objects;
 

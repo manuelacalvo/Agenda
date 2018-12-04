@@ -91,7 +91,7 @@ public class Rdv implements java.io.Serializable{
             m_h_fin = _h_fin;
         }
         else{
-            
+            System.out.println("Heure de fin avant début du RDV.\n L'heure de fin va être générée automatiquement 2h après le début.");
             m_h_fin = m_h_debut.plusHours(2);
         }
     }

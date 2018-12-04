@@ -20,14 +20,16 @@ public class RappelControleur {
     private RappelForm rappel = new RappelForm();
     
     public void affichage_rappel(Calendrier cal){
-        for(Rdv rdv : cal.getListeRdv()){
-            
-            if(rdv.getDate().equals(LocalDate.now())){
-                long a = MINUTES.between(rdv.getHdebut(), LocalTime.now());
-                if(a==-14){ 
-                    rappel.affichage_utilisateur(rdv);
+       if(!cal.getListeRdv().isEmpty()){
+           for(Rdv rdv : cal.getListeRdv()){
+                System.out.println(rdv.getHdebut().compareTo(LocalTime.now()));
+                if(rdv.getDate().equals(LocalDate.now())){
+                    long a = MINUTES.between(rdv.getHdebut(), LocalTime.now());
+                    if(a==-14){ 
+                        rappel.affichage_utilisateur(rdv);
+                    }
                 }
-            }
+           }
         }
     }
     

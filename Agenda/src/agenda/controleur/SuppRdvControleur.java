@@ -60,4 +60,8 @@ public class SuppRdvControleur {
         return liste_rdv;
     }
     
+    public void erreur_vide(){
+        choix.affichage_vide();
+    }
+    
 }

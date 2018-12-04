@@ -5,11 +5,9 @@
  */
 package agenda.vue;
 
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import javax.swing.Box;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,7 +27,6 @@ public class MenuForm {
     Box affichage;
     JLabel label_menu;
     private final Object lock = new Object();
-    ButtonGroup selec;
     JRadioButton choix1;
     JRadioButton choix2;
     JRadioButton choix3;
@@ -53,29 +50,28 @@ public class MenuForm {
 
     public int affichage_Menu(String chaine) {
         filled = false;
-        
+        // Menu : qu'est ce que tu veux faire ? switch
+        //bonjour qui c'est ?
         princip = new JFrame(" Bienvenue dans le menu de l'Agenda ");
         princip.setPreferredSize(new Dimension(800, 600));
-        
+        princip.setLocationRelativeTo(null);
 
         fenetre = Box.createHorizontalBox();
 
         menu = Box.createVerticalBox();
         label_menu = new JLabel("Que voulez-vous faire avec votre calendrier?");
-        selec = new ButtonGroup ();
         choix1 = new JRadioButton(" 1. Afficher tous vos RDV");
         choix2 = new JRadioButton(" 2. Afficher RDV selon un critère");
         choix3 = new JRadioButton(" 3. Modifier un RDV");
         choix4 = new JRadioButton(" 4. Supprimer un RDV");
         choix5 = new JRadioButton(" 5. Supprimer tous les RDV");
         choix6 = new JRadioButton(" 6. Ajouter un RDV");
-        choix7 = new JRadioButton(" 7. Afficher Rdv triés entre 2 dates");
+        choix7 = new JRadioButton(" 7. Sauvegarder et fermer l'agenda");
         choix8 = new JRadioButton(" 8. Changer d'utilisateur");
         choix9 = new JRadioButton(" 9. Fermer le programme");
         
         menu.add(label_menu);
 
-        
         menu.add(choix1);
         menu.add(choix2);
         menu.add(choix3);
@@ -85,16 +81,6 @@ public class MenuForm {
         menu.add(choix7);
         menu.add(choix8);
         menu.add(choix9);
-        
-        selec.add(choix1);
-        selec.add(choix2);
-        selec.add(choix3);
-        selec.add(choix4);
-        selec.add(choix5);
-        selec.add(choix6);
-        selec.add(choix7);
-        selec.add(choix8);
-        selec.add(choix9);
 
         affichage = Box.createHorizontalBox();
         fenetre_aff = new JTextArea(chaine);
@@ -161,8 +147,8 @@ public class MenuForm {
         if (choix9.isSelected() == true) {
             i = 9;
         }
-        
-         return i;
+
+        return i;
 
     }
 
